@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Estratégico: Painel Imob Avaliza 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F5F5F4; color: #44403C; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+        @media (max-width: 768px) { .chart-container { height: 300px; max-height: 350px; } }
+        .nav-link { transition: color 0.3s, border-bottom-color 0.3s; }
+        .nav-link:hover, .nav-link.active { color: #60BB46; border-bottom-color: #60BB46; }
+        .tab-button.active { background-color: #60BB46; color: white; }
+        .tab-button { transition: background-color 0.3s, color 0.3s; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .timeline-item::before { content: ''; position: absolute; left: -30px; top: 5px; width: 20px; height: 20px; border-radius: 50%; background-color: #60BB46; border: 4px solid #F5F5F4; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        avalizaBlue: {
+                            DEFAULT: '#120E45',
+                            50: '#E6E6EB',
+                            100: '#CDCDD4',
+                            200: '#9B9BAC',
+                            300: '#686883',
+                            400: '#36365B',
+                            500: '#120E45',
+                            600: '#0E0B37',
+                            700: '#0B0829',
+                            800: '#07051B',
+                            900: '#04030E',
+                        },
+                        avalizaGreen: {
+                            DEFAULT: '#60BB46',
+                            50: '#F0F9ED',
+                            100: '#E0F3D9',
+                            200: '#C2E7B3',
+                            300: '#A4DB8D',
+                            400: '#85CF67',
+                            500: '#60BB46',
+                            600: '#4DA53A',
+                            700: '#3A8F2D',
+                            800: '#277920',
+                            900: '#146313',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-avalizaBlue-50 text-avalizaBlue-800">
+
+    <header class="bg-avalizaBlue-50/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-6 flex justify-between items-center">
+            <!-- Removido o texto "Painel Imob Avaliza" do h1 -->
+            <a href="#sumario" class="flex items-center">
+                <img src="https://i.imgur.com/xlyPDIE.png" alt="Logo Painel Imob Avaliza" class="h-40 inline-block">
+            </a>
+            <div class="hidden md:flex items-center space-x-10">
+                <a href="#sumario" class="nav-link text-base font-medium text-avalizaBlue-600 border-b-2 border-transparent pb-1">Sumário</a>
+                <a href="#cenario" class="nav-link text-base font-medium text-avalizaBlue-600 border-b-2 border-transparent pb-1">Cenário 2025</a>
+                <a href="#temas" class="nav-link text-base font-medium text-avalizaBlue-600 border-b-2 border-transparent pb-1">Temas</a>
+                <a href="#estrutura" class="nav-link text-base font-medium text-avalizaBlue-600 border-b-2 border-transparent pb-1">Estrutura</a>
+                <a href="#sugestoes" class="nav-link text-base font-medium text-avalizaBlue-600 border-b-2 border-transparent pb-1">Sugestões Visuais</a>
+                <a href="https://wa.me/553135936993?text=Quero%20ser%20um%20patrocinador%20do%20PainelImob%202025" target="_blank" class="bg-avalizaGreen-500 text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-avalizaGreen-600 transition-colors inline-flex items-center">
+                    <img src="https://i.imgur.com/CmHEdhC.png" alt="WhatsApp Icon" class="w-5 h-5 mr-2"> Fale Conosco
+                </a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-avalizaBlue-800 focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4 space-y-3">
+             <a href="#sumario" class="block nav-link text-base font-medium text-avalizaBlue-600">Sumário</a>
+             <a href="#cenario" class="block nav-link text-base font-medium text-avalizaBlue-600">Cenário 2025</a>
+             <a href="#temas" class="block nav-link text-base font-medium text-avalizaBlue-600">Temas</a>
+             <a href="#estrutura" class="block nav-link text-base font-medium text-avalizaBlue-600">Estrutura</a>
+             <a href="#sugestoes" class="block nav-link text-base font-medium text-avalizaBlue-600">Sugestões Visuais</a>
+             <a href="https://wa.me/553135936993?text=Quero%20ser%20um%20patrocinador%20do%20PainelImob%202025" target="_blank" class="block bg-avalizaGreen-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-avalizaGreen-600 transition-colors mt-3 inline-flex items-center justify-center">
+                 <img src="https://i.imgur.com/CmHEdhC.png" alt="WhatsApp Icon" class="w-5 h-5 mr-2"> Fale Conosco
+             </a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <!-- Novo título principal da página -->
+        <section class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-avalizaBlue-900 leading-tight">
+                Painel Imob Avaliza - Estrutura
+            </h1>
+            <p class="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-avalizaBlue-600">
+                Onde oportunidades deixam de ser conversa e viram negócio. Conectando as imobiliárias mais qualificadas às soluções mais inovadoras do mercado.
+            </p>
+        </section>
+
+        <section id="sumario" class="bg-white p-8 rounded-lg shadow-md mb-12">
+            <h2 class="text-3xl font-bold text-avalizaBlue-900 mb-6">1. Sumário Executivo</h2>
+            <p class="text-avalizaBlue-700 leading-relaxed">O "Painel Imob Avaliza" é concebido como uma plataforma estratégica de alto impacto, projetada para catalisar a conexão entre imobiliárias qualificadas e as soluções mais inovadoras do mercado. O propósito central deste evento é triplo: impulsionar a geração de leads de alta qualidade para os patrocinadores, fortalecer o posicionamento da Avaliza como uma autoridade incontestável em garantias locatícias e soluções abrangentes para imobiliárias, e criar experiências de valor duradouras para todos os participantes.</p>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-4">A arquitetura do Painel Imob Avaliza é meticulosamente centrada nas necessidades e desafios das imobiliárias, assegurando que o conteúdo apresentado seja prático, acionável e diretamente aplicável ao seu cotidiano. As recomendações detalhadas neste relatório abrangem desde a seleção de temas de alto impacto que ressoam com as tendências atuais do setor, até uma estrutura de evento dinâmica que otimiza o engajamento e as oportunidades de networking. O evento é projetado para ser um catalisador de crescimento e inovação, fomentando parcerias estratégicas e o avanço contínuo do mercado imobiliário brasileiro.</p>
+        </section>
+
+        <section id="cenario" class="bg-white p-8 rounded-lg shadow-md mb-12">
+            <h2 class="text-3xl font-bold text-avalizaBlue-900 mb-6">2. Cenário do Mercado Imobiliário Brasileiro em 2025: Tendências, Dores e Oportunidades</h2>
+            <p class="text-avalizaBlue-700 leading-relaxed">O mercado imobiliário brasileiro em 2025 se configura como um ambiente dinâmico, moldado por transformações econômicas, avanços tecnológicos e uma evolução notável no comportamento de compradores e locatários. Compreender essas forças é fundamental para posicionar o Painel Imob Avaliza como um evento de relevância estratégica.</p>
+
+            <h3 class="text-2xl font-bold text-avalizaBlue-800 mt-8 mb-4">2.1. Tecnologias Transformadoras e Inovação</h3>
+            <h4 class="text-xl font-semibold text-avalizaBlue-700 mb-2">PropTech em Ascensão</h4>
+            <p class="text-avalizaBlue-700 leading-relaxed">O mercado global de PropTech está em uma trajetória de crescimento exponencial, com projeções de alcançar US$ 88.37 bilhões até 2032, partindo de US$ 40.19 bilhões em 2025, o que representa uma taxa de crescimento anual composta (CAGR) de 11.9%.[3] O Brasil se destaca como um motor significativo dessa expansão, impulsionado pela proliferação de empresas focadas em gestão imobiliária e por um cenário fértil para colaborações e aquisições estratégicas.[3]</p>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-2">A aceleração da PropTech no Brasil transcende a mera digitalização de processos; ela aponta para uma era de personalização em escala. A implementação de inteligência artificial generativa por grandes players, como o Quinto Andar, desde janeiro de 2025, para otimizar a busca de imóveis e recomendar opções personalizadas com base no comportamento e preferências do cliente [4], sinaliza uma crescente expectativa dos clientes por serviços customizados e eficientes. Para que imobiliárias de menor e médio porte se mantenham competitivas, torna-se imperativo que busquem soluções PropTech capazes de oferecer experiências igualmente sofisticadas. Isso, por sua vez, gera uma demanda clara por patrocinadores que forneçam ferramentas de IA voltadas para atendimento, busca e gestão personalizada.</p>
+            <div class="chart-container mt-6">
+                <canvas id="proptechGrowthChart"></canvas>
+            </div>
+            <p class="text-avalizaBlue-600 text-sm italic text-center mt-2">Gráfico: Crescimento Projetado do Mercado PropTech (2025-2032)</p>
+
+            <h4 class="text-xl font-semibold text-avalizaBlue-700 mt-8 mb-2">FinTech e a Revolução dos Pagamentos</h4>
+            <p class="text-avalizaBlue-700 leading-relaxed">O mercado brasileiro de FinTech exibe um crescimento acelerado, com um CAGR projetado de 19.30% entre 2025 e 2034.[5] Esse avanço é impulsionado pela adoção massiva de pagamentos digitais, exemplificada pelo sucesso do Pix, pela crescente inclusão financeira e pela alta penetração de smartphones, com mais de 90% da população brasileira tendo acesso a esses dispositivos.[5] A inovação no setor FinTech se estende a áreas como empréstimos digitais, seguros, gestão de patrimônio e tecnologia blockchain, atraindo um volume considerável de investimento estrangeiro.[5]</p>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-2">A onipresença do Pix e a busca contínua por inclusão financeira criam um ambiente propício para a inovação em garantias locatícias e soluções de pagamento que sejam mais acessíveis, rápidas e menos burocráticas. O Pix revolucionou as transações financeiras, tornando-as instantâneas e ubíquas. No contexto imobiliário, isso significa que a velocidade e a desburocratização das transações financeiras são agora uma expectativa padrão dos consumidores. Para empresas como a Avaliza, que atuam com garantias locatícias, a integração com soluções FinTech que agilizem o processo de aprovação e pagamento de aluguéis e garantias representa um diferencial competitivo estratégico. Além disso, a busca por inclusão financeira abre portas para soluções que atendam a um público mais amplo, que talvez não tenha acesso a garantias tradicionais.</p>
+
+            <h4 class="text-xl font-semibold text-avalizaBlue-700 mt-8 mb-2">Inteligência Artificial (IA) no Cotidiano Imobiliário</h4>
+            <p class="text-avalizaBlue-700 leading-relaxed">A inteligência artificial transcendeu o status de promessa para se consolidar como uma ferramenta indispensável no dia a dia do mercado imobiliário brasileiro.[6, 7] Em 2024, 19% das imobiliárias já utilizavam ferramentas de IA em suas operações, e a expectativa é que esse índice dobre até o final de 2025.[6]</p>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-2">As principais aplicações da IA incluem chatbots avançados que respondem a dúvidas 24 horas por dia, otimizando o tempo dos corretores e agilizando o contato inicial.[6] Algoritmos preditivos para avaliação de imóveis consideram uma infinidade de variáveis, desde dados históricos de vendas até indicadores socioeconômicos, sugerindo preços mais precisos e prevendo tendências de valorização.[6] As visitas virtuais, popularizadas durante a pandemia, foram turbinadas pela IA, oferecendo experiências personalizadas com opções de acabamento e mobília em tempo real, com realismo impressionante.[6] A IA está transformando a tomada de decisões, superando a cultura de "achismos" e promovendo análises mais assertivas e embasadas em dados.[7]</p>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-2">A IA está redefinindo o papel do profissional imobiliário, transformando-o de um profissional que opera por percepções para um estrategista de dados. Se a IA assume tarefas repetitivas, como o atendimento inicial via chatbots, e análises complexas, como a avaliação preditiva, o corretor é liberado para focar em tarefas de maior valor agregado, como negociação, relacionamento e consultoria estratégica.[6] Isso exige que as imobiliárias invistam em treinamento e ferramentas que capacitem seus profissionais a usar a IA como um copiloto, um assistente inteligente que aprimora suas capacidades, e não como um substituto. Patrocinadores que oferecem soluções de IA para otimização de processos e capacitação de equipes serão, portanto, de grande relevância para as imobiliárias.</p>
+            <div class="chart-container mt-6">
+                <canvas id="aiAdoptionChart"></canvas>
+            </div>
+            <p class="text-avalizaBlue-600 text-sm italic text-center mt-2">Gráfico: Adoção de Inteligência Artificial em Imobiliárias (2024)</p>
+
+            <h4 class="text-xl font-semibold text-avalizaBlue-700 mt-8 mb-2">Sustentabilidade (ESG) e Smart Home</h4>
+            <p class="text-avalizaBlue-700 leading-relaxed">A sustentabilidade se tornará uma característica cada vez mais valorizada nos empreendimentos imobiliários em 2025, com soluções ecoeficientes, como o uso de energia solar e materiais recicláveis, ganhando destaque entre os consumidores.[1] O movimento ESG (Environmental, Social, and Governance) foi plenamente abraçado pelo mercado imobiliário, com investidores cada vez mais preocupados com os impactos ambientais, sociais e de governança, buscando monitorar e engajar gestoras sobre suas políticas e sistemas.[8] A integração de tecnologias de Smart Home, por sua vez, é reconhecida como uma estratégia de marketing inovadora, agregando valor percebido aos imóveis.[9]</p>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-2">O ESG está se tornando um imperativo de mercado impulsionado por investidores e consumidores, e não apenas uma iniciativa de responsabilidade social. A crescente preocupação dos investidores com ESG significa que imóveis e empreendimentos com certificações e práticas sustentáveis terão maior acesso a capital e maior liquidez no mercado.[8] Para as imobiliárias, isso se traduz em uma oportunidade de diferenciar seu portfólio e atrair um público mais consciente e disposto a pagar por valor agregado. Patrocinadores que oferecem soluções para certificação, gestão de energia, automação residencial e materiais sustentáveis possuem um grande potencial para o mercado.</p>
+
+            <h3 class="text-2xl font-bold text-avalizaBlue-800 mt-8 mb-4">2.2. Comportamento do Comprador e Locatário Moderno no Brasil</h3>
+            <h4 class="text-xl font-semibold text-avalizaBlue-700 mb-2">Segmentação de Compradores</h4>
+            <p class="text-avalizaBlue-700 leading-relaxed">Entre 2022 e 2025, a fatia de investidores no mercado imobiliário saltou de 12% para 41%, enquanto a maioria ainda compra para morar.[10] Essa dualidade exige campanhas de marketing distintas, focando em rentabilidade da região, liquidez do imóvel e tendências de valorização para investidores, e segurança residencial para compradores de moradia.[10]</p>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-2">A dualidade "moradia versus investimento" implica que as imobiliárias precisam de sistemas de CRM e estratégias de comunicação que permitam segmentar e personalizar a jornada do cliente desde o primeiro contato. Se quase metade dos compradores são agora investidores, uma abordagem "tamanho único" não é mais eficaz. As imobiliárias precisam de ferramentas que identifiquem rapidamente o perfil do cliente e ofereçam imóveis e informações alinhadas aos seus objetivos, seja renda passiva, valorização ou segurança. Patrocinadores que oferecem plataformas de gestão de leads, automação de marketing ou consultoria para segmentação serão, portanto, muito valiosos.</p>
+            <div class="chart-container mt-6">
+                <canvas id="buyerProfileChart"></canvas>
+            </div>
+            <p class="text-avalizaBlue-600 text-sm italic text-center mt-2">Gráfico: Perfil do Comprador de Imóveis (2025)</p>
+
+            <h4 class="text-xl font-semibold text-avalizaBlue-700 mt-8 mb-2">A Ascensão dos Jovens Compradores</h4>
+            <p class="text-avalizaBlue-700 leading-relaxed">Compradores com menos de 30 anos representaram 41.6% dos contratos financiados em 2024.[10] Essa nova geração valoriza localização, praticidade e estilo de vida, buscando imóveis compactos com comodidades como coworking, academia e espaço pet.[10] Para alcançá-los, é essencial uma presença ativa em redes sociais, vídeos curtos, experiências gamificadas (como tours virtuais) e atendimento digitalizado, frequentemente via WhatsApp.[10]</p>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-2">A dominância dos jovens compradores representa um catalisador para a digitalização completa da jornada do cliente. A Geração Z e os Millennials são nativos digitais e esperam interações rápidas, visuais e convenientes em todos os pontos de contato. Isso significa que as imobiliárias precisam ir além de ter um website; elas precisam de tours virtuais de alta qualidade, atendimento via IA ou WhatsApp 24/7 e conteúdo otimizado para redes sociais. Patrocinadores que oferecem essas soluções digitais são cruciais para o sucesso das imobiliárias que desejam capturar e engajar esse público.</p>
+
+            <h4 class="text-xl font-semibold text-avalizaBlue-700 mt-8 mb-2">Influência da Renda e Programas Habitacionais</h4>
+            <p class="text-avalizaBlue-700 leading-relaxed">A classe B representa quase metade dos compradores ativos, enquanto a classe C ganha força com programas habitacionais como o Minha Casa, Minha Vida (MCMV).[10] As recentes reformulações do MCMV, incluindo a criação da faixa 4, aumento de subsídios e elevação do teto de financiamento, devem ampliar ainda mais a demanda por imóveis.[11, 12] Incorporadoras com exposição ao programa já reportaram melhorias nas margens, indicando um segmento de mercado robusto.[11]</p>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-2">As políticas governamentais, como o MCMV, atuam como um forte motor de demanda, especialmente para o segmento de imóveis mais acessíveis. Isso, por sua vez, pode impactar a demanda por garantias locatícias. Um mercado aquecido por programas habitacionais significa mais transações de compra e venda e, consequentemente, uma maior necessidade de soluções de garantia para locação, mesmo para imóveis de faixas de renda mais baixas. A Avaliza pode se posicionar como um facilitador para imobiliárias que atuam nesse segmento, oferecendo soluções adaptadas às realidades financeiras e burocráticas desse público.</p>
+
+            <h3 class="text-2xl font-bold text-avalizaBlue-800 mt-8 mb-4">2.3. Estratégias de Marketing e Vendas Inovadoras para Imobiliárias de Sucesso</h3>
+            <h4 class="text-xl font-semibold text-avalizaBlue-700 mb-2">Digitalização e Experiência do Cliente (CX)</h4>
+            <p class="text-avalizaBlue-700 leading-relaxed">O marketing imobiliário deve focar em conectar empresas com pessoas, gerando leads e aumentando vendas por meio de estratégias inovadoras e personalizadas.[13] A integração de tecnologias de Smart Home não é apenas um recurso do imóvel, mas uma estratégia de marketing inovadora que agrega valor e diferenciação.[9] Ferramentas digitais como visitas virtuais são cruciais para o marketing imobiliário moderno.[2]</p>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-2">O sucesso no marketing imobiliário de 2025 não se baseia apenas na adoção de ferramentas digitais, mas na capacidade de criar uma experiência do cliente (CX) integrada e memorável em todos os pontos de contato. Com a digitalização avançada e a expectativa dos jovens compradores [10], a simples presença online não é suficiente. As imobiliárias precisam de um CX B2B que seja rápido, conveniente e memorável.[14] Isso inclui desde o tour virtual imersivo até o atendimento automatizado e a personalização da oferta. Patrocinadores que oferecem plataformas de CRM, automação de marketing e ferramentas de visualização 3D/VR contribuem diretamente para aprimorar essa experiência.</p>
+
+            <h4 class="text-xl font-semibold text-avalizaBlue-700 mt-8 mb-2">Conteúdo de Valor e Posicionamento de Marca</h4>
+            <p class="text-avalizaBlue-700 leading-relaxed">Para se destacar, é fundamental o posicionamento, a credibilidade e a relevância da marca.[13] Um conhecimento profundo do mercado, incluindo as nuances burocráticas de contratos, financiamentos e comissões, é essencial para ser assertivo nas estratégias.[13] Materiais como e-books, whitepapers, artigos e entrevistas são eficazes para gerar relevância e posicionar a empresa como autoridade no setor. Webinars também são reconhecidos como valiosos para esse fim.[15]</p>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-2">A credibilidade e a autoridade são construídas através da entrega consistente de conteúdo educacional e prático que resolve as dores das imobiliárias. Em um mercado competitivo, as imobiliárias buscam parceiros que as ajudem a navegar pelas complexidades e a impulsionar seu crescimento. Patrocinadores que oferecem insights sobre tendências de mercado, melhores práticas de gestão ou soluções para desafios burocráticos [13] por meio de formatos como webinars ou e-books [15] constroem confiança e posicionam suas marcas como líderes de pensamento, atraindo imobiliárias em busca de conhecimento e soluções.</p>
+
+            <h3 class="text-2xl font-bold text-avalizaBlue-800 mt-8 mb-4">2.4. Dores e Oportunidades Atuais para Imobiliárias Brasileiras</h3>
+            <h4 class="text-xl font-semibold text-avalizaBlue-700 mb-2">Dores</h4>
+            <ul class="list-disc list-inside text-avalizaBlue-700 leading-relaxed">
+                <li><strong class="font-bold">Crédito Imobiliário Cauteloso:</strong> Há uma previsão de menor liquidez no mercado de compra de imóveis devido a mudanças nas regras de financiamento da Caixa Econômica Federal, que limitam o financiamento a 70% do valor do imóvel e impõem juros mais altos. Isso exige maior comprovação de renda e maiores entradas iniciais, impactando especialmente a classe média.[2]</li>
+                <li><strong class="font-bold">Cultura de "Achismos":</strong> O mercado imobiliário ainda opera, em grande parte, com base em percepções e suposições, o que gera incerteza no lançamento de novos produtos e na tomada de decisões estratégicas.[7]</li>
+                <li><strong class="font-bold">Custo de Investimento em ESG/Tecnologia:</strong> O alto custo de investimento em tecnologias avançadas e práticas ESG, especialmente para equipamentos importados, pode representar uma barreira significativa para a adoção por parte de algumas imobiliárias.[16]</li>
+                <li><strong class="font-bold">Competição e Acesso a Regiões Remotas:</strong> A crescente concorrência no setor FinTech e os desafios para alcançar regiões rurais ou menos desenvolvidas tecnologicamente representam obstáculos para a expansão e a inclusão digital.[5]</li>
+            </ul>
+
+            <h4 class="text-xl font-semibold text-avalizaBlue-700 mt-8 mb-2">Oportunidades</h4>
+            <ul class="list-disc list-inside text-avalizaBlue-700 leading-relaxed">
+                <li><strong class="font-bold">Mercado de Locação Aquecido:</strong> A cautela no crédito para compra de imóveis pode naturalmente desviar a demanda para o mercado de locação.[2] Esta situação representa uma oportunidade direta para a Avaliza e seus parceiros, uma vez que o mercado de garantias locatícias se torna ainda mais relevante.</li>
+                <li><strong class="font-bold">Valorização de Imóveis e Liquidez:</strong> A busca por qualidade de vida e espaços adaptados ao trabalho remoto continua a impulsionar a valorização de imóveis em áreas suburbanas e cidades de médio porte. Imóveis prontos para morar, com melhorias recentes, apresentam alta liquidez no mercado. A recuperação econômica estimula a procura, especialmente em mercados estratégicos como o Nordeste.[2]</li>
+                <li><strong class="font-bold">Programas Habitacionais:</strong> O programa Minha Casa, Minha Vida (MCMV), com suas recentes reformulações, incluindo a criação da faixa 4, aumento de subsídios e elevação do teto de financiamento, representa uma demanda ampliada e melhoria de margens para incorporadoras, indicando um segmento de mercado robusto.[11, 12]</li>
+                <li><strong class="font-bold">Adoção de Tecnologia:</strong> A crescente adoção de IA [6, 7], PropTech [3, 4] e FinTech [5] oferece ferramentas poderosas para otimizar operações, aprimorar o atendimento ao cliente e fundamentar a tomada de decisões em dados concretos.</li>
+                <li><strong class="font-bold">Diferenciação via ESG:</strong> A valorização da sustentabilidade por consumidores e investidores [1, 8] permite que as imobiliárias se diferenciem no mercado e atraiam um público mais exigente e consciente.</li>
+            </ul>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-4">A dificuldade no acesso ao crédito imobiliário se traduz diretamente em uma oportunidade estratégica para a Avaliza e seus parceiros no mercado de locação. Se a compra de imóveis se torna mais desafiadora devido às restrições de crédito, a demanda por aluguel naturalmente se intensifica. Isso posiciona o mercado de garantias locatícias como um pilar essencial para as imobiliárias, tornando a Avaliza um parceiro ainda mais vital. Patrocinadores que oferecem soluções complementares ao ciclo de locação, como gestão de contratos e plataformas de inquilinos, serão altamente relevantes neste cenário.</p>
+        </section>
+
+        <section id="temas" class="bg-white p-8 rounded-lg shadow-md mb-12">
+            <h2 class="text-3xl font-bold text-avalizaBlue-900 mb-6">3. Temas Centrais Altamente Atrativos para o Painel Imob Avaliza 2025</h2>
+            <p class="text-avalizaBlue-700 leading-relaxed">Com base na pesquisa de mercado e na análise das dores e oportunidades das imobiliárias, os temas a seguir foram selecionados para maximizar o valor entregue aos participantes e facilitar a criação de apresentações relevantes pelos patrocinadores. Eventos de sucesso no Brasil têm focado em perspectivas econômicas, novas tendências de negócios [17], transformação digital [18], e temas inovadores e tecnológicos para o aperfeiçoamento do corretor, incluindo vendas, neurociência, alta performance, imobiliária do futuro, regularização imobiliária e marketing digital [19], sempre com conteúdos práticos e aplicáveis.[20]</p>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-2">A seleção dos temas foi guiada pela necessidade de serem diretamente relevantes para as imobiliárias, abordando seus desafios e oportunidades, e ao mesmo tempo, permitindo que os patrocinadores apresentem suas soluções de forma contextualizada e valiosa. É importante ressaltar que <strong class="font-bold">estes temas são sugestivos</strong>, e os patrocinadores terão a flexibilidade de focar na apresentação de suas soluções e como elas resolvem as dores do mercado, mesmo que não se encaixem perfeitamente em um tema específico. Isso garante que o evento entregue valor bidirecional, facilitando a geração de leads qualificados para os patrocinadores e insights acionáveis para as imobiliárias.</p>
+
+            <div class="overflow-x-auto mt-8">
+                <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                    <thead>
+                        <tr class="bg-avalizaBlue-100 text-avalizaBlue-800 text-left">
+                            <th class="py-3 px-4 border-b border-gray-200">Tema Central Sugerido</th>
+                            <th class="py-3 px-4 border-b border-gray-200">Justificativa de Valor para Imobiliárias</th>
+                            <th class="py-3 px-4 border-b border-gray-200">Facilidade para Patrocinadores Criarem Apresentações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-3 px-4 border-b border-gray-200 font-semibold">1. IA na Imobiliária 4.0: Otimizando Processos e Personalizando a Experiência do Cliente</td>
+                            <td class="py-3 px-4 border-b border-gray-200">Aborda a dor da ineficiência e a oportunidade de personalização. Mostra como a IA pode liberar tempo para corretores e melhorar o CX.</td>
+                            <td class="py-3 px-4 border-b border-gray-200">Patrocinadores de CRM, automação de marketing, chatbots, IA para avaliação, plataformas de tour virtual.</td>
+                        </tr>
+                        <tr class="bg-avalizaBlue-50">
+                            <td class="py-3 px-4 border-b border-gray-200 font-semibold">2. Finanças Imobiliárias Descomplicadas: Pix, Open Finance e Novas Garantias Locatícias</td>
+                            <td class="py-3 px-4 border-b border-gray-200">Foca na agilidade financeira e na superação da burocracia do crédito, relevante para locação e compra.</td>
+                            <td class="py-3 px-4 border-b border-gray-200">Patrocinadores de FinTechs, plataformas de pagamento, soluções de crédito, Avaliza (garantias locatícias).</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4 border-b border-gray-200 font-semibold">3. Marketing Digital Além do Básico: Estratégias para Atrair e Converter Geração Z e Investidores</td>
+                            <td class="py-3 px-4 border-b border-gray-200">Responde à necessidade de alcançar novos perfis de compradores/locatários com táticas inovadoras (gamificação, vídeo).</td>
+                            <td class="py-3 px-4 border-b border-gray-200">Patrocinadores de agências de marketing digital, plataformas de CRM, ferramentas de vídeo marketing, soluções de tour virtual.</td>
+                        </tr>
+                        <tr class="bg-avalizaBlue-50">
+                            <td class="py-3 px-4 border-b border-gray-200 font-semibold">4. Imóveis do Futuro: Sustentabilidade, Smart Homes e o Valor do ESG no Portfólio</td>
+                            <td class="py-3 px-4 border-b border-gray-200">Destaca uma tendência de valorização e diferenciação, abordando a demanda de consumidores e investidores por imóveis mais "verdes" e inteligentes.</td>
+                            <td class="py-3 px-4 border-b border-gray-200">Patrocinadores de tecnologias Smart Home, consultorias ESG, certificadoras, fornecedores de materiais sustentáveis.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4 border-b border-gray-200 font-semibold">5. Gestão de Alta Performance para Imobiliárias: Dados, Decisão e Produtividade Operacional</td>
+                            <td class="py-3 px-4 border-b border-gray-200">Ajuda a superar a cultura de "achismos" e foca em como usar dados para otimizar vendas, locações e gestão de equipe.</td>
+                            <td class="py-3 px-4 border-b border-gray-200">Patrocinadores de softwares de gestão (ERP/CRM), plataformas de BI, consultorias de gestão, ferramentas de análise de mercado.</td>
+                        </tr>
+                        <tr class="bg-avalizaBlue-50">
+                            <td class="py-3 px-4 border-b border-gray-200 font-semibold">6. O Mercado de Locação em 2025: Tendências, Desafios e Soluções para Crescer com Segurança</td>
+                            <td class="py-3 px-4 border-b border-gray-200">Tema central para Avaliza, abordando o aquecimento do mercado de locação e as soluções para seus desafios.</td>
+                            <td class="py-3 px-4 border-b border-gray-200">Avaliza (soluções de garantia), patrocinadores de plataformas de gestão de aluguéis, seguros, soluções jurídicas.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4 border-b border-gray-200 font-semibold">7. Expansão Inteligente: Como Identificar e Conquistar Novos Mercados e Nichos (Luxo, Compactos, Híbridos)</td>
+                            <td class="py-3 px-4 border-b border-gray-200">Explora as oportunidades de valorização em diferentes segmentos e a flexibilidade dos espaços.</td>
+                            <td class="py-3 px-4 border-b border-gray-200">Patrocinadores de ferramentas de pesquisa de mercado, consultorias de expansão, plataformas de imóveis de luxo/especializados.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="estrutura" class="bg-white p-8 rounded-lg shadow-md mb-12">
+            <h2 class="text-3xl font-bold text-avalizaBlue-900 mb-6">4. Estrutura Detalhada do Evento Painel Imob Avaliza</h2>
+            <p class="text-avalizaBlue-700 leading-relaxed">O plano completo para o Painel Imob Avaliza visa criar um evento dinâmico, envolvente e altamente produtivo para todas as partes envolvidas. O formato geral será um Painel de Oportunidades, com apresentações dos patrocinadores integradas em blocos temáticos. O público-alvo são até 100 imobiliárias qualificadas, e a duração sugerida é de um período completo (manhã ou tarde inteira, 4-5 horas) para maximizar o foco e permitir um networking substancial.</p>
+
+            <h3 class="text-2xl font-bold text-avalizaBlue-800 mt-8 mb-4">4.1. Roteiro da Abertura Institucional Avaliza</h3>
+            <ul class="list-disc list-inside text-avalizaBlue-700 leading-relaxed">
+                <li><strong class="font-bold">Orador Sugerido:</strong> Marcella Braz, possui carisma e capacidade de conduzir o evento.</li>
+                <li><strong class="font-bold">Tom:</strong> Leve, inspirador, acolhedor, sutilmente comercial, com um posicionamento de autoridade no tema de garantias locatícias e soluções para imobiliárias.</li>
+                <li><strong class="font-bold">Duração:</strong> 5-7 minutos.</li>
+                <li><strong class="font-bold">Conteúdo:</strong>
+                    <ul class="list-circle list-inside ml-6">
+                        <li><strong class="font-bold">Boas-vindas calorosas e reconhecimento:</strong> "Bom dia/tarde a todos os parceiros e amigos imobiliários! É uma alegria imensa tê-los aqui no Painel Imob Avaliza. Sabemos o valor do tempo de vocês e o quanto o dia a dia de uma imobiliária é dinâmico. Por isso, cada minuto deste evento foi pensado <em>para vocês</em>."</li>
+                        <li><strong class="font-bold">Contextualização e Propósito:</strong> "O mercado imobiliário brasileiro está em constante evolução, impulsionado por tecnologias, novos comportamentos e desafios únicos. Nosso objetivo hoje é desmistificar essas mudanças, transformá-las em oportunidades e conectar vocês com as soluções mais relevantes do mercado."</li>
+                        <li><strong class="font-bold">Posicionamento Sutil da Avaliza:</strong> "Na Avaliza, nossa missão vai além de oferecer garantias locatícias. Somos parceiros estratégicos que entendem as dores e os sonhos de cada imobiliária. Acreditamos que a segurança e a inovação são pilares para o crescimento sustentável. Por isso, idealizamos este painel: um espaço para troca, aprendizado e, acima de tudo, para construir o futuro do setor juntos."</li>
+                        <li><strong class="font-bold">Criação de Conexão Emocional:</strong> "Sabemos que o coração de uma imobiliária pulsa na relação com seus clientes e na busca por eficiência. Queremos que vocês saiam daqui com insights práticos, novas ferramentas e, quem sabe, parcerias que transformem o seu dia a dia. Este evento é um reflexo do nosso compromisso em ser a ponte entre o desafio e o solução, a inovação e a segurança."</li>
+                        <li><strong class="font-bold">Chamada para o Engajamento:</strong> "Aproveitem cada apresentação, cada conversa nos intervalos. Façam perguntas, troquem cartões, explorem as oportunidades. O futuro do mercado imobiliário está sendo construído agora, e vocês são os protagonistas. Sejam muito bem-vindos!"</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-4">A abertura não é apenas uma formalidade, mas uma oportunidade crucial para estabelecer a Avaliza como um curador de valor e um parceiro estratégico, não apenas um fornecedor. Embora a pesquisa não tenha fornecido "melhores práticas" diretas para aberturas de eventos B2B [17, 19], eventos de sucesso, como o Summit Imobiliário [17], começam com um "Welcome" de figuras de autoridade. Para a Avaliza, isso significa que a abertura deve ser mais do que uma saudação; deve ser uma declaração de propósito que ressoa com o público. Ao focar no benefício direto para as imobiliárias e na "construção conjunta do futuro", a Avaliza se posiciona como um facilitador do sucesso de seus parceiros, criando uma conexão emocional e sutilmente comercial que prepara o terreno para as apresentações dos patrocinadores.</p>
+
+            <h3 class="text-2xl font-bold text-avalizaBlue-800 mt-8 mb-4">4.2. Dinâmica dos Painéis e Apresentações dos Patrocinadores</h3>
+            <p class="text-avalizaBlue-700 leading-relaxed">A dinâmica dos painéis é projetada para otimizar a entrega de conteúdo e o engajamento do público.</p>
+            <ul class="list-disc list-inside text-avalizaBlue-700 leading-relaxed">
+                <li><strong class="font-bold">Formato Ideal:</strong> Painéis curtos e dinâmicos, com 2-3 patrocinadores por painel, moderados por um especialista da Avaliza ou um influenciador reconhecido no setor. Este formato permite aprofundar um tema específico e criar um fluxo de discussão, em vez de uma série de apresentações isoladas.</li>
+                <li><strong class="font-bold">Duração Total do Painel:</strong> 45-60 minutos (incluindo introdução, apresentações dos patrocinadores e sessão de perguntas e respostas).</li>
+                <li><strong class="font-bold">Foco das Apresentações:</strong> As apresentações devem ser orientadas para soluções, cases de sucesso, dados de mercado relevantes e insights práticos. É crucial evitar pitches de vendas agressivos; o objetivo é educar, inspirar e demonstrar valor.</li>
+                <li><strong class="font-bold">Sugestões de Formatos de Conteúdo para Patrocinadores (Geral):</strong>
+                    <ul class="list-circle list-inside ml-6">
+                        <li><strong class="font-bold">Demonstração ao Vivo:</strong> Mostrar a ferramenta ou solução em ação, focando na resolução de uma dor específica da imobiliária.</li>
+                        <li><strong class="font-bold">Case de Sucesso:</strong> Apresentar resultados concretos de uma imobiliária que utilizou a solução, com depoimentos e dados mensuráveis.[21]</li>
+                        <li><strong class="font-bold">Dados Exclusivos do Setor/Pesquisa:</strong> Apresentar insights de mercado, tendências ou benchmarks que agreguem valor estratégico e informem a tomada de decisão.[21]</li>
+                        <li><strong class="font-bold">Mini-Workshop/Dica Prática:</strong> Oferecer um "como fazer" rápido para uma estratégia ou ferramenta, proporcionando valor imediato.</li>
+                        <li><strong class="font-bold">"O Futuro de X":</strong> Uma visão de futuro sobre um tema relevante, posicionando a empresa como líder de pensamento e inovação.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-4">A eficácia das apresentações dos patrocinadores depende diretamente da sua capacidade de entregar valor tangível e acionável, alinhado com as dores e oportunidades das imobiliárias, e não apenas da exposição da marca. Eventos B2B são eficazes para geração de leads qualificados [22], mas isso exige uma estratégia clara e um foco na qualidade das interações. O público B2B busca soluções para seus problemas e uma boa experiência do cliente.[14] Portanto, as apresentações não devem ser meros "pitches", mas sessões de "consultoria" em miniatura. Ao focar em cases de sucesso, dados exclusivos e demonstrações práticas [21], os patrocinadores educam o público, constroem credibilidade e geram leads mais qualificados, pois as imobiliárias já percebem o valor intrínseco da solução.</p>
+
+            <h3 class="text-2xl font-bold text-avalizaBlue-800 mt-8 mb-4">4.3. Estrutura de Participação por Cota de Patrocínio</h3>
+            <p class="text-avalizaBlue-700 leading-relaxed">A estrutura de participação deve escalar o tempo de fala e o formato de conteúdo com base no nível de patrocínio, garantindo exclusividade e valor para cada cota.</p>
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg mt-6">
+                <div class="mb-8 border-b border-gray-200">
+                    <nav class="flex flex-wrap justify-center -mb-px" id="sponsorship-tabs">
+                        <button data-target="ouro" class="tab-button active px-8 py-4 text-lg font-medium text-avalizaBlue-600 rounded-t-lg">🥇 Ouro</button>
+                        <button data-target="prata" class="tab-button px-8 py-4 text-lg font-medium text-avalizaBlue-600 rounded-t-lg">🥈 Prata</button>
+                        <button data-target="bronze" class="tab-button px-8 py-4 text-lg font-medium text-avalizaBlue-600 rounded-t-lg">🥉 Bronze</button>
+                    </nav>
+                </div>
+                <div id="sponsorship-content">
+                    <div id="ouro-content" class="sponsorship-content fade-in">
+                        <div class="text-center">
+                            <h4 class="text-3xl font-bold text-avalizaBlue-800">Cota Ouro - Rota Mestra</h4>
+                            <p class="text-avalizaGreen-500 font-semibold mt-2 text-xl">Liderança de Pensamento e Engajamento Profundo</p>
+                        </div>
+                        <div class="mt-10 grid md:grid-cols-2 gap-10 items-start">
+                            <div>
+                                <h5 class="font-bold text-xl mb-5 text-avalizaBlue-700">Principais Benefícios:</h5>
+                                <ul class="space-y-4 text-avalizaBlue-600 text-base">
+                                    <li class="flex items-start"><span class="text-avalizaGreen-500 text-xl mr-3">✔</span> <strong>Jantar exclusivo</strong> com empresas VIP e imobiliárias destaque.</li>
+                                    <li class="flex items-start"><span class="text-avalizaGreen-500 text-xl mr-3">✔</span> <strong>Participação em painel de conteúdo</strong> como especialista.</li>
+                                    <li class="flex items-start"><span class="text-avalizaGreen-500 text-xl mr-3">✔</span> Conteúdo personalizado com Ricardo Martins (vídeo, reels ou entrevista).</li>
+                                    <li class="flex items-start"><span class="text-avalizaGreen-500 text-xl mr-3">✔</span> Brinde premium no kit dos participantes e presença em fotos oficiais.</li>
+                                    <li class="flex items-start"><span class="text-avalizaGreen-500 text-xl mr-3">✔</span> Acesso a <strong>+100 leads qualificados</strong> por edição.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-avalizaBlue-50 p-8 rounded-lg border border-avalizaBlue-200">
+                                 <h5 class="font-bold text-xl mb-5 text-avalizaBlue-700">Apresentação no Painel:</h5>
+                                 <p class="text-4xl font-bold text-avalizaBlue-800">15 min <span class="text-xl font-normal text-avalizaBlue-500">de fala no palco</span></p>
+                                 <p class="mt-2 text-avalizaBlue-600 text-base">+ vídeo institucional (até 8 min)</p>
+                                 <h5 class="font-bold text-xl mt-8 mb-4 text-avalizaBlue-700">Formato Sugerido:</h5>
+                                 <p class="text-avalizaBlue-600 text-base"><strong>Palestra Interativa ou Demonstração Detalhada.</strong> Aborde um tema central com profundidade, faça uma demonstração ao vivo e interaja com a audiência através de Q&A.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="prata-content" class="sponsorship-content hidden fade-in">
+                       <div class="text-center">
+                            <h4 class="text-3xl font-bold text-avalizaBlue-800">Cota Prata - Rota de Influência</h4>
+                            <p class="text-gray-500 font-semibold mt-2 text-xl">Prova Social e Autoridade</p>
+                        </div>
+                         <div class="mt-10 grid md:grid-cols-2 gap-10 items-start">
+                            <div>
+                                <h5 class="font-bold text-xl mb-5 text-avalizaBlue-700">Principais Benefícios:</h5>
+                                <ul class="space-y-4 text-avalizaBlue-600 text-base">
+                                    <li class="flex items-start"><span class="text-avalizaGreen-500 text-xl mr-3">✔</span> Jantar exclusivo com empresas VIP e imobiliárias destaque.</li>
+                                    <li class="flex items-start"><span class="text-avalizaGreen-500 text-xl mr-3">✔</span> Brinde premium no kit dos participantes.</li>
+                                    <li class="flex items-start"><span class="text-avalizaGreen-500 text-xl mr-3">✔</span> Presença em sessões de fotos oficiais.</li>
+                                    <li class="flex items-start"><span class="text-avalizaGreen-500 text-xl mr-3">✔</span> Destaque no palco e materiais de comunicação.</li>
+                                    <li class="flex items-start"><span class="text-avalizaGreen-500 text-xl mr-3">✔</span> Acesso a <strong>+100 leads qualificados</strong> por edição.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-avalizaBlue-50 p-8 rounded-lg border border-avalizaBlue-200">
+                                 <h5 class="font-bold text-xl mb-5 text-avalizaBlue-700">Apresentação no Painel:</h5>
+                                 <p class="text-4xl font-bold text-avalizaBlue-800">10 min <span class="text-xl font-normal text-avalizaBlue-500">de fala no palco</span></p>
+                                 <p class="mt-2 text-avalizaBlue-600 text-base">+ vídeo institucional (até 5 min)</p>
+                                 <h5 class="font-bold text-xl mt-8 mb-4 text-avalizaBlue-700">Formato Sugerido:</h5>
+                                 <p class="text-avalizaBlue-600 text-base"><strong>Mini Case ou Dados de Mercado.</strong> Apresente um case de sucesso simplificado (problema, solução, resultado) ou dados exclusivos para demonstrar eficácia e autoridade.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="bronze-content" class="sponsorship-content hidden fade-in">
+                       <div class="text-center">
+                            <h4 class="text-3xl font-bold text-avalizaBlue-800">Cota Bronze - Rota Presença</h4>
+                            <p class="text-avalizaGreen-500 font-semibold mt-2 text-xl">Conscientização e Solução Pontual</p>
+                        </div>
+                        <div class="mt-10 grid md:grid-cols-2 gap-10 items-start">
+                            <div>
+                                <h5 class="font-bold text-xl mb-5 text-avalizaBlue-700">Principais Benefícios:</h5>
+                                <ul class="space-y-4 text-avalizaBlue-600 text-base">
+                                    <li class="flex items-start"><span class="text-avalizaGreen-500 text-xl mr-3">✔</span> Destaque no palco e materiais de comunicação.</li>
+                                    <li class="flex items-start"><span class="text-avalizaGreen-500 text-xl mr-3">✔</span> Participação em materiais gráficos oficiais (impressos e digitais).</li>
+                                    <li class="flex items-start"><span class="text-avalizaGreen-500 text-xl mr-3">✔</span> Acesso a <strong>+50 leads qualificados</strong> por edição.</li>
+                                    <li class="flex items-start"><span class="text-gray-400 text-xl mr-3">✖</span> Jantar exclusivo e brindes premium.</li>
+                                    <li class="flex items-start"><span class="text-gray-400 text-xl mr-3">✖</span> Presença em sessões de fotos oficiais.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-avalizaBlue-50 p-8 rounded-lg border border-avalizaBlue-200">
+                                 <h5 class="font-bold text-xl mb-5 text-avalizaBlue-700">Apresentação no Painel:</h5>
+                                 <p class="text-4xl font-bold text-avalizaBlue-800">5 min <span class="text-xl font-normal text-avalizaBlue-500">de fala no palco</span></p>
+                                 <p class="mt-2 text-avalizaBlue-600 text-base">+ vídeo institucional (até 2 min)</p>
+                                 <h5 class="font-bold text-xl mt-8 mb-4 text-avalizaBlue-700">Formato Sugerido:</h5>
+                                 <p class="text-avalizaBlue-600 text-base"><strong>Flash Talk ou Dica Rápida.</strong> Apresente de forma concisa um insight ou uma solução única para uma dolor específica, gerando curiosidade e conscientização.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-avalizaBlue-800 mt-8 mb-4">4.4. Intervalos e Dinâmicas de Networking</h3>
+            <p class="text-avalizaBlue-700 leading-relaxed">Os momentos de intervalo são oportunidades estratégicas para fomentar conexões valiosas.</p>
+            <ul class="list-disc list-inside text-avalizaBlue-700 leading-relaxed">
+                <li><strong class="font-bold">Duração:</strong> 20-30 minutos por intervalo (sugere-se um mínimo de dois intervalos).</li>
+                <li><strong class="font-bold">Dinâmicas Sugeridas:</strong>
+                    <ul class="list-circle list-inside ml-6">
+                        <li><strong class="font-bold">"Speed Networking" Guiado:</strong> Organizar mesas ou grupos temáticos com um facilitador para iniciar conversas e conectar imobiliárias com patrocinadores e entre si, com base em interesses pré-registrados.[26]</li>
+                        <li><strong class="font-bold">Área de Exposição Interativa:</strong> Pequenos estandes ou "estações de experiência" onde os patrocinadores podem ter demonstrações rápidas e interações individuais.</li>
+                        <li><strong class="font-bold">Aplicativo de Evento com Matchmaking:</strong> Utilizar um aplicativo dedicado que permita aos participantes criar perfis, visualizar a agenda e agendar reuniões individuais com outros participantes e patrocinadores.[26, 27]</li>
+                        <li><strong class="font-bold">Coffee Break Temático:</strong> Servir o coffee break em áreas que incentivem a circulação e a formação de pequenos grupos de conversa, facilitando a interação espontânea.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-4">O networking em eventos B2B [22] não deve ser deixado ao acaso; ele precisa ser estruturado e facilitado por tecnologia para maximizar a geração de leads qualificados e a experiência do participante. A geração de leads em eventos B2B é mais eficaz com "relações de qualidade" e "envolvimento cuidadoso".[22] Isso não acontece espontaneamente com 100 pessoas. Uma plataforma de gestão online [26] ou um aplicativo de networking [27] permite que os participantes agendem reuniões com antecedência, segmentem perfis e troquem contatos de forma eficiente, transformando o networking de um momento informal em uma ferramenta estratégica de prospecção.</p>
+
+            <h3 class="text-2xl font-bold text-avalizaBlue-800 mt-8 mb-4">4.5. Fechamento com Chamada para Ação</h3>
+            <p class="text-avalizaBlue-700 leading-relaxed">O fechamento do evento é a última oportunidade de consolidar o aprendizado e direcionar os participantes para os próximos passos.</p>
+            <ul class="list-disc list-inside text-avalizaBlue-700 leading-relaxed">
+                <li><strong class="font-bold">Duração:</strong> 5-7 minutos.</li>
+                <li><strong class="font-bold">Orador:</strong> Marcella Braz, para manter a coerência e a autoridade.</li>
+                <li><strong class="font-bold">Conteúdo:</strong>
+                    <ul class="list-circle list-inside ml-6">
+                        <li><strong class="font-bold">Recapitulação dos Principais Aprendizados:</strong> "Esperamos que as sessões de hoje tenham sido inspiradoras e repletas de insights práticos sobre IA, FinTech, ESG e as novas dinâmicas do mercado imobiliário."</li>
+                        <li><strong class="font-bold">Reforço do Valor da Avaliza:</strong> "Na Avaliza, entendemos que o valor real está na aplicação desses conhecimentos. Por isso, estamos aqui para ser seu parceiro nessa jornada, oferecendo não apenas garantias locatícias, mas soluções que impulsionam o seu negócio com segurança e inovação."</li>
+                        <li><strong class="font-bold">Chamadas para Ação (CTAs) Claras e Múltiplas:</strong>
+                            <ul class="list-square list-inside ml-6">
+                                <li><strong class="font-bold">Para Imobiliárias:</strong>
+                                    <ul class="list-none ml-6">
+                                        <li>"Visite nosso estande virtual/físico para agendar uma consultoria gratuita com nossos especialistas e descobrir como a Avaliza pode otimizar suas operações de locação. Agende sua Consultoria Gratuita." [28]</li>
+                                        <li>"Baixe o e-book exclusivo do Painel Imob Avaliza com os principais insights e contatos dos patrocinadores. Baixe o E-book Agora." [28]</li>
+                                        <li>"Conecte-se conosco no LinkedIn para continuar essa conversa e acessar conteúdos exclusivos. Conecte-se Conosco." [28]</li>
+                                    </ul>
+                                </li>
+                                <li><strong class="font-bold">Para Patrocinadores:</strong>
+                                    <ul class="list-none ml-6">
+                                        <li>"Agradecemos a todos os patrocinadores por compartilharem suas soluções inovadoras. Convidamos as imobiliárias a se conectarem diretamente com eles em suas estações de networking ou através do aplicativo do evento."</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong class="font-bold">Agradecimento e Despedida:</strong> "Agradecemos a presença e o engajamento de cada um de vocês. Que as conexões e o conhecimento adquiridos hoje se traduzam em um futuro ainda mais próspero para suas imobiliárias. Contem sempre com a Avaliza. Muito obrigado e até o próximo Painel Imob Avaliza!"</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-4">O fechamento do evento é a última chance de converter o interesse em ação mensurável, tanto para a Avaliza quanto para os patrocinadores. Uma chamada para ação eficaz deve ser clara, concisa e orientar o usuário para o próximo passo.[28, 29] Ao oferecer múltiplas chamadas para ação (consultoria, e-book, conexão social), a Avaliza aumenta as chances de engajamento pós-evento. A menção aos patrocinadores no fechamento reforça o valor da parceria e direciona o tráfego para suas próprias chamadas para ação, garantindo um bom retorno sobre o investimento para eles.</p>
+        </section>
+
+        <section id="sugestoes" class="bg-white p-8 rounded-lg shadow-md mb-12">
+            <h2 class="text-3xl font-bold text-avalizaBlue-900 mb-6">5. Sugestões Visuais e de Apresentação para Patrocinadores</h2>
+            <p class="text-avalizaBlue-700 leading-relaxed">Para garantir que as apresentações dos patrocinadores sejam impactantes e memoráveis, é crucial seguir as tendências de design e comunicação visual.</p>
+            <h3 class="text-2xl font-bold text-avalizaBlue-800 mt-8 mb-4">Tendências de Design para Apresentações Corporativas em 2025:</h3>
+            <ul class="list-disc list-inside text-avalizaBlue-700 leading-relaxed">
+                <li><strong class="font-bold">Visual Storytelling:</strong> Contar uma história envolvente com imagens e gráficos, em vez de apenas listar fatos, para criar uma conexão mais profunda com a audiência.[24]</li>
+                <li><strong class="font-bold">Mais Imagens, Menos Palavras:</strong> Priorizar elementos visuais fortes e concisos. O texto deve ser mínimo, impactante e servir de apoio ao visual, não o contrário.[25]</li>
+                <li><strong class="font-bold">Cores Vibrantes e Formas Ousadas:</strong> Utilizar paletas de cores que chamem a atenção e elementos gráficos que se destaquem, transmitindo modernidade e dinamismo.[24]</li>
+                <li><strong class="font-bold">Tipografias Personalizadas, Grandes e Exclusivas:</strong> Empregar fontes que reforcem a identidade da marca do patrocinador e que sejam fáceis de ler, mesmo à distância, garantindo clareza e profissionalismo.[24]</li>
+                <li><strong class="font-bold">Elementos 3D e Gráficos em Camadas:</strong> Adicionar profundidade e dinamismo aos slides, tornando a apresentação mais rica visualmente e engajadora.[24]</li>
+                <li><strong class="font-bold">Animações e Movimento (Sutis):</strong> Pequenas animações podem dar vida a gráficos e dados, tornando-os mais envolventes e fáceis de entender, sem distrair do conteúdo principal.[24, 25]</li>
+                <li><strong class="font-bold">Slides Clicáveis e Interativos:</strong> Se a plataforma tecnológica do evento permitir, incluir elementos que convidem à interação, como links ou quizzes, para aumentar o engajamento do público.[25]</li>
+                <li><strong class="font-bold">Designs Simples com Destaques Marcantes:</strong> Manter a simplicidade geral do design, mas com pontos focais que guiem o olhar da audiência para as informações mais importantes.[25]</li>
+                <li><strong class="font-bold">Modo Escuro (Dark Mode):</strong> Considerar o uso de slides em modo escuro para um visual moderno e que reduz a fadiga visual, especialmente em ambientes com pouca luz.[25]</li>
+            </ul>
+            <h3 class="text-2xl font-bold text-avalizaBlue-800 mt-8 mb-4">Dicas Práticas para Criar Slides Impactantes:</h3>
+            <ul class="list-disc list-inside text-avalizaBlue-700 leading-relaxed">
+                <li><strong class="font-bold">Foco na Solução, Não no Produto:</strong> Cada slide deve comunicar claramente como a solução do patrocinador resolve uma dor específica da imobiliária, em vez de apenas descrever funcionalidades.</li>
+                <li><strong class="font-bold">Dados Visualizados:</strong> Transformar números e estatísticas complexas em gráficos claros, infográficos e visualmente atraentes para facilitar a compreensão e a retenção da informação.</li>
+                <li><strong class="font-bold">Chamada para Ação Clara por Slide:</strong> Mesmo que sutil, cada slide pode ter uma micro-chamada para ação (ex: "Saiba mais em nosso site", "Fale com um especialista"), direcionando o interesse do público.</li>
+                <li><strong class="font-bold">Branding Consistente:</strong> Utilizar a identidade visual da empresa patrocinadora de forma profissional e harmoniosa em todos os slides, reforçando o reconhecimento da marca.</li>
+                <li><strong class="font-bold">Storytelling com Cases:</strong> Apresentar um case de sucesso como uma narrativa envolvente, com um protagonista (a imobiliária cliente), um desafio que enfrentava e a solução do patrocinador como o "herói" que trouxe a transformação.</li>
+            </ul>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-4">O design da apresentação é tão crucial quanto o conteúdo, pois ele determina a capacidade de reter a atenção e transmitir a mensagem de valor em um ambiente B2B dinâmico. Em um evento com múltiplos painéis e patrocinadores, a capacidade de se destacar visualmente é fundamental. Um design moderno, com visual storytelling e menos texto, não apenas melhora a experiência do espectador, mas também facilita a compreensão e a memorização da mensagem. Isso se alinha com a necessidade de criar uma "experiência memorável" para as imobiliárias e otimiza a eficácia da apresentação do patrocinador na geração de leads.</p>
+        </section>
+
+        <section id="proximos-passos" class="bg-white p-8 rounded-lg shadow-md mb-12">
+            <h2 class="text-3xl font-bold text-avalizaBlue-900 mb-6">6. Próximos Passos e Considerações Finais</h2>
+            <p class="text-avalizaBlue-700 leading-relaxed">Este relatório detalha uma estrutura robusta e estratégica para o Painel Imob Avaliza 2025, concebido para ser um evento de referência no setor imobiliário brasileiro. As recomendações chave enfatizam a importância de focar na entrega de valor tangível para as imobiliárias, abordando suas dores e oportunidades por meio de temas altamente relevantes, como a transformação digital, as novas dinâmicas financeiras e a ascensão do ESG.</p>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-2">A estrutura proposta para o evento, incluindo a abertura institucional, a dinâmica dos painéis por cota de patrocínio e as estratégias de networking, visa maximizar o engajamento e a geração de leads qualificados. A integração de tecnologias para facilitar o networking e a atenção ao design visual das apresentações são elementos cruciais para garantir uma experiência memorável e eficaz para todos os participantes.</p>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-2">Os próximos passos envolverão a análise do mídia kit da Avaliza para incorporar as informações específicas das cotas de patrocínio e detalhes institucionais no plano final. Sugere-se um próximo encontro para refinar os detalhes com base nesse material e em qualquer feedback adicional, garantindo que o Painel Imob Avaliza seja um marco de sucesso no setor.</p>
+            <p class="text-avalizaBlue-700 leading-relaxed mt-2">A Avaliza está em uma posição única para liderar essas discussões e fortalecer seu ecossistema de parceiros. Ao oferecer um evento que realmente atende às necessidades do mercado, a empresa não apenas reforça sua autoridade em garantias locatícias, mas também se estabelece como um catalisador de inovação e crescimento para as imobiliárias em todo o Brasil.</p>
+        </section>
+
+        <section id="referencias" class="bg-white p-8 rounded-lg shadow-md mb-12">
+            <h2 class="text-3xl font-bold text-avalizaBlue-900 mb-6">7. Referências</h2>
+            <ol class="list-decimal list-inside text-avalizaBlue-700 leading-relaxed">
+                <li><a href="https://www.google.com/search?q=tendencias+mercado+imobiliario+2025+brasil" target="_blank" class="text-avalizaGreen-500 hover:underline">Tendências do Mercado Imobiliário 2025 no Brasil</a></li>
+                <li><a href="https://www.google.com/search?q=mercado+imobiliario+2025+perspectivas" target="_blank" class="text-avalizaGreen-500 hover:underline">Perspectivas do Mercado Imobiliário 2025</a></li>
+                <li><a href="https://www.google.com/search?q=crescimento+mercado+proptech+brasil+2025-2032" target="_blank" class="text-avalizaGreen-500 hover:underline">Crescimento do Mercado PropTech Brasil 2025-2032</a></li>
+                <li><a href="https://www.google.com/search?q=quinto+andar+ia+generativa+2025" target="_blank" class="text-avalizaGreen-500 hover:underline">Quinto Andar IA Generativa 2025</a></li>
+                <li><a href="https://www.google.com/search?q=crescimento+mercado+fintech+brasil+2025-2034" target="_blank" class="text-avalizaGreen-500 hover:underline">Crescimento do Mercado FinTech Brasil 2025-2034</a></li>
+                <li><a href="https://www.google.com/search?q=ia+no+mercado+imobiliario+brasil+2024+2025" target="_blank" class="text-avalizaGreen-500 hover:underline">IA no Mercado Imobiliário Brasil 2024-2025</a></li>
+                <li><a href="https://www.google.com/search?q=inteligencia+artificial+imobiliaria+achismos" target="_blank" class="text-avalizaGreen-500 hover:underline">Inteligência Artificial Imobiliária Achismos</a></li>
+                <li><a href="https://www.google.com/search?q=esg+mercado+imobiliario+investidores+2025" target="_blank" class="text-avalizaGreen-500 hover:underline">ESG Mercado Imobiliário Investidores 2025</a></li>
+                <li><a href="https://www.google.com/search?q=smart+home+marketing+imobiliario+inovacao" target="_blank" class="text-avalizaGreen-500 hover:underline">Smart Home Marketing Imobiliário Inovação</a></li>
+                <li><a href="https://www.google.com/search?q=perfil+comprador+imoveis+brasil+2025+investidores+jovens" target="_blank" class="text-avalizaGreen-500 hover:underline">Perfil Comprador Imóveis Brasil 2025 Investidores Jovens</a></li>
+                <li><a href="https://www.google.com/search?q=minha+casa+minha+vida+faixa+4+2025" target="_blank" class="text-avalizaGreen-500 hover:underline">Minha Casa Minha Vida Faixa 4 2025</a></li>
+                <li><a href="https://www.google.com/search?q=mcmv+aumento+subsidios+teto+financiamento+2025" target="_blank" class="text-avalizaGreen-500 hover:underline">MCMV Aumento Subsídios Teto Financiamento 2025</a></li>
+                <li><a href="https://www.google.com/search?q=marketing+imobiliario+inovador+2025" target="_blank" class="text-avalizaGreen-500 hover:underline">Marketing Imobiliário Inovador 2025</a></li>
+                <li><a href="https://www.google.com/search?q=experiencia+cliente+b2b+imobiliario" target="_blank" class="text-avalizaGreen-500 hover:underline">Experiência Cliente B2B Imobiliário</a></li>
+                <li><a href="https://www.google.com/search?q=conteudo+de+valor+marketing+b2b+imobiliario" target="_blank" class="text-avalizaGreen-500 hover:underline">Conteúdo de Valor Marketing B2B Eficazes</a></li>
+                <li><a href="https://www.google.com/search?q=custo+investimento+esg+tecnologia+imobiliaria" target="_blank" class="text-avalizaGreen-500 hover:underline">Custo Investimento ESG Tecnologia Imobiliária</a></li>
+                <li><a href="https://www.google.com/search?q=eventos+imobiliarios+sucesso+brasil+temas+2025" target="_blank" class="text-avalizaGreen-500 hover:underline">Eventos Imobiliários Sucesso Brasil Temas 2025</a></li>
+                <li><a href="https://www.google.com/search?q=transformacao+digital+eventos+imobiliarios" target="_blank" class="text-avalizaGreen-500 hover:underline">Transformação Digital Eventos Imobiliários</a></li>
+                <li><a href="https://www.google.com/search?q=temas+inovadores+corretor+imobiliario+2025" target="_blank" class="text-avalizaGreen-500 hover:underline">Temas Inovadores Corretor Imobiliário 2025</a></li>
+                <li><a href="https://www.google.com/search?q=conteudo+pratico+eventos+imobiliarios" target="_blank" class="text-avalizaGreen-500 hover:underline">Conteúdo Prático Eventos Imobiliários</a></li>
+                <li><a href="https://www.google.com/search?q=apresentacoes+b2b+cases+dados+valor" target="_blank" class="text-avalizaGreen-500 hover:underline">Apresentações B2B Cases Dados Valor</a></li>
+                <li><a href="https://www.google.com/search?q=geracao+leads+eventos+b2b+qualidade" target="_blank" class="text-avalizaGreen-500 hover:underline">Geração Leads Eventos B2B Qualidade</a></li>
+                <li><a href="https://www.google.com/search?q=tipos+de+conteudo+b2b+eficazes" target="_blank" class="text-avalizaGreen-500 hover:underline">Tipos de Conteúdo B2B Eficazes</a></li>
+                <li><a href="https://www.google.com/search?q=tendencias+design+apresentacoes+corporativas+2025" target="_blank" class="text-avalizaGreen-500 hover:underline">Tendências Design Apresentações Corporativas 2025</a></li>
+                <li><a href="https://www.google.com/search?q=apresentacoes+visuais+impactantes+menos+texto" target="_blank" class="text-avalizaGreen-500 hover:underline">Apresentações Visuais Impactantes Menos Texto</a></li>
+                <li><a href="https://www.google.com/search?q=speed+networking+eventos+b2b+matchmaking" target="_blank" class="text-avalizaGreen-500 hover:underline">Speed Networking Eventos B2B Matchmaking</a></li>
+                <li><a href="https://www.google.com/search?q=aplicativo+evento+networking+b2b" target="_blank" class="text-avalizaGreen-500 hover:underline">Aplicativo Evento Networking B2B</a></li>
+                <li><a href="https://www.google.com/search?q=chamada+para+acao+eventos+b2b+eficaz" target="_blank" class="text-avalizaGreen-500 hover:underline">Chamada para Ação Eventos B2B Eficaz</a></li>
+                <li><a href="https://www.google.com/search?q=cta+marketing+digital+eficaz" target="_blank" class="text-avalizaGreen-500 hover:underline">CTA Marketing Digital Eficaz</a></li>
+            </ol>
+        </section>
+
+        <section id="contato" class="bg-avalizaGreen-500 text-white p-8 rounded-lg shadow-md text-center">
+            <h2 class="text-3xl font-bold mb-4">Pronto para a Próxima Etapa?</h2>
+            <p class="text-avalizaGreen-100 leading-relaxed max-w-2xl mx-auto">Este documento foi criado para facilitar nossa discussão e planejamento. Entre em contato para agendarmos a próxima reunião e darmos vida ao Painel Imob Avaliza 2025.</p>
+            <a href="https://wa.me/553135936993?text=Quero%20ser%20um%20patrocinador%20do%20PainelImob%202025" target="_blank" class="mt-6 inline-flex bg-white text-avalizaGreen-800 font-bold px-6 py-3 rounded-lg text-base hover:bg-avalizaGreen-50 transition-colors items-center">
+                <img src="https://i.imgur.com/RGaENcG.png" alt="WhatsApp Icon" class="w-5 h-5 mr-2"> Quero ser um patrocinador
+            </a>
+        </section>
+
+    </main>
+
+    <footer class="bg-avalizaBlue-900 text-avalizaBlue-300 py-8 text-center">
+        <p>&copy; 2025 Avaliza. Todos os direitos reservados.</p>
+        <p class="mt-2">Painel Imob Avaliza - Uma iniciativa para fortalecer o mercado imobiliário brasileiro.</p>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Chart.js Label Wrapping and Tooltip Callback
+    const processLabel = (label) => {
+        const maxLength = 16;
+        if (label.length <= maxLength) return label;
+        
+        const words = label.split(' ');
+        const lines = [];
+        let currentLine = '';
+        
+        words.forEach(word => {
+            if ((currentLine + word).length > maxLength) {
+                lines.push(currentLine.trim());
+                currentLine = '';
+            }
+            currentLine += word + ' ';
+        });
+        lines.push(currentLine.trim());
+        return lines;
+    };
+
+    const tooltipTitleCallback = (tooltipItems) => {
+        const item = tooltipItems[0];
+        let label = item.chart.data.labels[item.dataIndex];
+        return Array.isArray(label) ? label.join(' ') : label;
+    };
+    
+    const commonChartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                labels: { color: '#120E45', font: { size: 12 } } // avalizaBlue-500
+            },
+            tooltip: {
+                backgroundColor: '#120E45', // avalizaBlue-500
+                titleFont: { size: 14, weight: 'bold' },
+                bodyFont: { size: 12 },
+                padding: 12,
+                cornerRadius: 6,
+                callbacks: { title: tooltipTitleCallback }
+            }
+        },
+        scales: {
+            y: { 
+                beginAtZero: true,
+                ticks: { color: '#686883' }, // avalizaBlue-300
+                grid: { color: '#CDCDD4' } // avalizaBlue-100
+            },
+            x: { 
+                ticks: { color: '#686883' }, // avalizaBlue-300
+                grid: { display: false }
+            }
+        }
+    };
+
+    // PropTech Growth Chart
+    const proptechData = {
+        labels: ['2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032'],
+        datasets: [{
+            label: 'Mercado em US$ Bilhões',
+            data: [40.19, 44.97, 50.32, 56.31, 63.01, 70.51, 78.90, 88.37],
+            borderColor: '#60BB46', // avalizaGreen-500
+            backgroundColor: 'rgba(96, 187, 70, 0.1)',
+            fill: true,
+            tension: 0.3
+        }]
+    };
+    new Chart(document.getElementById('proptechGrowthChart'), { type: 'line', data: proptechData, options: commonChartOptions });
+
+    // AI Adoption Chart
+    const aiAdoptionData = {
+        labels: [processLabel('Já Utilizam IA (19%)'), processLabel('Ainda Não Utilizam (81%)')],
+        datasets: [{
+            data: [19, 81],
+            backgroundColor: ['#120E45', '#A4DB8D'], // avalizaBlue-500, avalizaGreen-300
+            borderColor: '#F5F5F4', // body background
+            borderWidth: 4,
+            hoverOffset: 8
+        }]
+    };
+    new Chart(document.getElementById('aiAdoptionChart'), { 
+        type: 'doughnut', 
+        data: aiAdoptionData, 
+        options: { ...commonChartOptions, plugins: { ...commonChartOptions.plugins, legend: { position: 'bottom', labels: { color: '#120E45', font: { size: 12 } } } }, scales: {} }
+    });
+
+    // Buyer Profile Chart
+    const buyerProfileData = {
+        labels: [processLabel('Compradores Investidores'), processLabel('Compradores com Menos de 30 Anos')],
+        datasets: [{
+            label: 'Fatia de Mercado (%)',
+            data: [41, 41.6],
+            backgroundColor: ['#120E45', '#60BB46'], // avalizaBlue-500, avalizaGreen-500
+            borderRadius: 6,
+            barPercentage: 0.5
+        }]
+    };
+    new Chart(document.getElementById('buyerProfileChart'), { 
+        type: 'bar', 
+        data: buyerProfileData, 
+        options: { ...commonChartOptions, scales: { ...commonChartOptions.scales, y: { ...commonChartOptions.scales.y, ticks: { callback: value => value + '%' }}}}
+    });
+
+    // Sponsorship Tabs Logic
+    const sponsorshipTabs = document.getElementById('sponsorship-tabs');
+    const sponsorshipContents = document.getElementById('sponsorship-content').children;
+    sponsorshipTabs.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            const targetId = e.target.dataset.target;
+
+            Array.from(sponsorshipTabs.children).forEach(button => button.classList.remove('active'));
+            e.target.classList.add('active');
+
+            Array.from(sponsorshipContents).forEach(content => {
+                if (content.id === `${targetId}-content`) {
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
+            });
+        }
+    });
+});
+</script>
+
+</body>
+</html>
